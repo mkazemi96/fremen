@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>fremenarray</name>
+  <version>0.3.0</version>
+  <description>FremenArray is a tool for prediction of large arrays of binary states based on non-uniform Fourier Transform. It uses the frequency spectrum analysis to identify reoccuring patterns in temporal sequences of binary states and represents the probability of these states in an analythical form as a combination of harmonic functions. This allows to learn long-term dynamics of the environment and use the learned experience to predict states of the world models used in mobile robotics. This ability is beneficial for tasks like self-localization, object search, path planning, anomaly detection and exploration.</description>
+
+  <maintainer email="tkrajnik@lincoln.ac.uk">Tom Krajnik</maintainer>
+
+  <license>MIT</license>
+
+  <author email="tkrajnik@lincoln.ac.uk">Tom Krajnik</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <build_depend>ament_cmake</build_depend>
+  <build_depend>ament_index_cpp</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rcutils</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>tf2_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rcutils</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_uncrustify</test_depend>
+  <test_depend>gtest</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+
