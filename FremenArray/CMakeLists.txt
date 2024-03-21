@@ -9,7 +9,7 @@ endif()
 # Find packages in ROS 2
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(actionlib_msgs REQUIRED)
+find_package(action_msgs REQUIRED) # or actionlib_msgs, depending on your action definition
 find_package(geometry_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(tf2 REQUIRED)
@@ -20,7 +20,7 @@ find_package(visualization_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   action/FremenArray.action
-  DEPENDENCIES actionlib_msgs
+  DEPENDENCIES action_msgs
 )
 
 # Define the executable
@@ -34,7 +34,7 @@ target_include_directories(fremenarray PUBLIC
 # Link against required ROS 2 libraries
 ament_target_dependencies(fremenarray
   rclcpp
-  actionlib_msgs
+  action_msgs
   geometry_msgs
   std_msgs
   tf2
