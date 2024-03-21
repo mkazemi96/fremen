@@ -1,36 +1,54 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.5)
 project(fremenarray)
 
+# Default to C++14
+if(NOT CMAKE_CXX_STANDARD)
+  set(CMAKE_CXX_STANDARD 14)
+endif()
 
-find_package(catkin REQUIRED COMPONENTS roscpp genmsg actionlib_msgs actionlib) 
+# Find packages in ROS 2
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(actionlib_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_geometry_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
-set ( CMAKE_CXX_FLAGS "-Ofast -march=native -mno-avx -ggdb")
-
-add_action_files(
-  DIRECTORY action
-  FILES FremenArray.action
+# Add message and action dependencies
+find_package(rosidl_default_generators REQUIRED)
+rosidl_generate_interfaces(${PROJECT_NAME}
+  action/FremenArray.action
+  DEPENDENCIES actionlib_msgs
 )
 
-generate_messages(
-   DEPENDENCIES actionlib_msgs 
-)
-
-catkin_package(CATKIN_DEPENDS roscpp message_runtime genmsg actionlib_msgs)
-
-include_directories(${catkin_INCLUDE_DIRS}) 
-
+# Define the executable
 add_executable(fremenarray src/fremenarray.cpp)
 
-add_dependencies(fremenarray ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
+# Include directories
+target_include_directories(fremenarray PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
 
-add_library(fremenarray_frelement src/CFrelement.cpp)
-
-target_link_libraries (fremenarray ${catkin_LIBRARIES} fremenarray_frelement)
-
-# Mark executables and/or libraries for installation
-install(TARGETS fremenarray fremenarray_frelement
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# Link against required ROS 2 libraries
+ament_target_dependencies(fremenarray
+  rclcpp
+  actionlib_msgs
+  geometry_msgs
+  std_msgs
+  tf2
+  tf2_geometry_msgs
+  visualization_msgs
 )
 
+# Install executable
+install(TARGETS
+  fremenarray
+  DESTINATION lib/${PROJECT_NAME})
+
+# Install headers
+install(DIRECTORY include/
+  DESTINATION include)
+
+ament_package()
